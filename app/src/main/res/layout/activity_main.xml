@@ -5,16 +5,32 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:id="@+id/et_id"
+        android:hint="id"/>
+
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:id="@+id/et_pw"
+        android:hint="pw"/>
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="로그인" android:textSize="20dp" android:layout_marginBottom="100dp"/>
+        android:id="@+id/bt_login"
+        android:text="로그인" android:textSize="30dp" android:layout_marginBottom="100dp"/>
+
     <Button
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:text="회원가입" android:textSize="20dp" android:layout_marginBottom="220dp"/>
+        android:layout_height="wrap_content" android:text="회원가입"
+        android:id="@+id/bt_join"
+        android:textSize="20dp" android:layout_marginTop="100dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="30dp"
+        android:layout_marginTop="90dp"
+        android:text="계정이 없다면 생성먼저" />
 
 </LinearLayout>

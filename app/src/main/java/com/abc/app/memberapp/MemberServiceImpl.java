@@ -1,5 +1,7 @@
 package com.abc.app.memberapp;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -11,20 +13,25 @@ import java.util.Set;
  */
 public class MemberServiceImpl implements MemberService{
     private Map<String,MemberBean> map;
-    private MemberDAO dao;
+    MemberDAO dao;
+    MemberBean session;
+
+    public MemberServiceImpl(Context context) {
+        dao = new MemberDAO(context);
+    }
 
     @Override
     public MemberBean login(MemberBean mBean) {
         return null;
     }
 
-    private MemberBean session;
+
 
 
     private static MemberServiceImpl instance = new MemberServiceImpl();
 
     private MemberServiceImpl() {
-        dao =  MemberDAO.getInstance();
+
     }
     public static MemberServiceImpl getInstance() {
         return instance;

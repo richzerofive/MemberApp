@@ -89,13 +89,27 @@ import java.util.ArrayList;
     }
 
     public MemberBean findByPK(String pk) {
-        String sql = "select * from member where id = ?";
+        String sql = "select "
+                + String.format("%s,%s,%s,%s,%s,%s,%s ", ID, PW, NAME, SSN, EMAIL, PROFILE, PHONE)
+                + String.format(" from " + TABLE_NAME + " where id = '%s' ;", pk);
         MemberBean temp = null;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor=db.rawQuery(sql,null);
-        return temp;
-    }
+        Cursor cursor = db.rawQuery(sql, null);
+        if (cursor != null) {
+            Log.d("DAO FIND_BY_ID", "ID 조회 성공 !!");
+            if (cursor.moveToFirst()) {
+                temp = new MemberBean();
+                temp.setId(cursor.getString(0));
+                temp.setPw(cursor.getString(1));
+                temp.setName(cursor.getString(2));
+                temp.setSsn(cursor.getString(3));
+                temp.setEmail(cursor.getString(4));
+                temp.setProfile(cursor.getString(5));
+                temp.setPhone(cursor.getString(6));
+            }
 
+        }return temp;
+    }
     public ArrayList<MemberBean> list() {
         String sql = "select "
                 + String.format("%s,%s,%s,%s,%s,%s,%s ", ID, PW, NAME, SSN, EMAIL, PROFILE, PHONE)

@@ -1,6 +1,9 @@
 package com.abc.app.memberapp;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -28,8 +31,35 @@ public class MemberListActivity extends Activity{
                 Object o = lv_memberlist.getItemAtPosition(position);
                 MemberBean member = (MemberBean) o;
                 Toast.makeText(MemberListActivity.this,"선택한이름:"+member.getName(),Toast.LENGTH_LONG).show();
+
+               Intent intent = new Intent(MemberListActivity.this,DetailActivity.class);
+                intent.putExtra("id",member.getId());
+                startActivity(intent);
                 phone.directCall(member.getPhone());
 
+            }
+        });
+        lv_memberlist.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View v,
+                                           int position, long id) {
+                new AlertDialog.Builder(MemberListActivity.this)
+                        .setTitle("Delete entry")
+                        .setMessage("Are you sure you want to delete this entry?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // continue with delete
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do nothing
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+
+                return true;
             }
         });
     }

@@ -11,11 +11,14 @@ import android.widget.Toast;
 public class JoinActivity extends Activity implements View.OnClickListener{
     EditText et_id,et_pw,et_name,et_ssn,et_email,et_phone;
     Button bt_join,bt_reset;
+    MemberService service;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join);
 
+        service = new MemberServiceImpl(this.getApplicationContext());
         et_id = (EditText) findViewById(R.id.et_id);
         et_pw = (EditText) findViewById(R.id.et_pw);
         et_name = (EditText) findViewById(R.id.et_name);
@@ -33,8 +36,18 @@ public class JoinActivity extends Activity implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.bt_join:
-                startActivity(new Intent(this,MainActivity.class));
                 Toast.makeText(JoinActivity.this,"id"+et_id.getText().toString()+"pw"+et_pw.getText().toString()+"name"+et_name.getText().toString()+"ssn"+et_ssn.getText().toString()+"email:"+et_email.getText().toString()+"phone"+et_phone.getText().toString(),Toast.LENGTH_LONG).show();
+                MemberBean member = new MemberBean();
+                member.setId(et_id.getText().toString());
+                member.setPw(et_pw.getText().toString());
+                member.setName(et_name.getText().toString());
+                member.setSsn(et_ssn.getText().toString());
+                member.setEmail(et_email.getText().toString());
+                member.setPhone(et_phone.getText().toString());
+                member.setProfile("default.jpg");
+
+                service.regist(member);
+                startActivity(new Intent(this,MainActivity.class));
                 break;
             case R.id.bt_reset:
                 startActivity(new Intent(this,MainActivity.class));

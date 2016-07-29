@@ -21,12 +21,9 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public MemberBean login(MemberBean mBean) {
-        return null;
+    public boolean login(MemberBean mBean) {
+        return dao.login(mBean);
     }
-
-
-
 
     private static MemberServiceImpl instance = new MemberServiceImpl();
 
@@ -38,23 +35,8 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public String regist(MemberBean mem) {
-        String msg = "";
-        MemberBean temp = this.findById(mem.getId());
-        if (temp == null) {
-            System.out.println(mem.getId()+"가 존재하지 않음,가입 가능한 ID");
-            int result = dao.insert(mem);
-            if (result==1) {
-                msg = "success";
-            } else {
-                msg = "fail";
-            }
-        } else {
-            System.out.println(mem.getId()+"가 존재함,가입 불가능한 ID");
-            msg = "fail";
-        }
-
-        return msg;
+    public void regist(MemberBean mem) {
+        dao.insert(mem);
     }
 
     @Override
@@ -93,17 +75,12 @@ public class MemberServiceImpl implements MemberService{
         }
         return findList;
     }
+
     @Override
     public ArrayList<MemberBean> list() {
-        ArrayList<MemberBean> allList = new ArrayList<MemberBean>();
-        Set<?> keys = map.keySet();
-        Iterator<?> it = keys.iterator();
-        while(it.hasNext()){
-            allList.add((MemberBean) this.map.get(it.next()));
-        }
-
-        return allList;
+        return dao.list();
     }
+
     public MemberBean getSession() {
         return session;
     }
